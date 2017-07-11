@@ -21,6 +21,10 @@ PRJ_DIR=./projects/failoverdemo62
 # wipe screen.
 clear
 
+cd /opt/app-root/
+#Troubleshoot Install
+ls -l installs/*.zip
+
 # add executeable in installs
 chmod +x installs/*.zip
 
@@ -187,3 +191,9 @@ sh $AMQ_MASTER_HOME/bin/artemis queue create --auto-create-address --address haQ
 
 echo "To stop the backgroud AMQ broker processes, please go to bin folders and execute 'artemis-service stop'"
 echo
+
+while true; do
+    sleep 30
+    echo "======== Running AMQ 7 HA Replication Demo =============="
+done
+
