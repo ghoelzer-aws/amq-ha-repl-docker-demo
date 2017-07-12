@@ -119,12 +119,12 @@ sed -i'' -e 's/<master\/>/<master>\n\                <check-for-live-server>true
 echo "  - Changing default master clustering configuration"
 echo
 sed -i'' -e '/<broadcast-groups>/,/<\/discovery-groups>/d' $AMQ_MASTER_HOME/etc/broker.xml
-sed -i'' -e '/<\/connector>/ a \        <connector name="discovery-connector">tcp://0.0.0.0:61716</connector>' $AMQ_MASTER_HOME/etc/broker.xml
+sed -i'' -e '/<\/connector>/ a \        <connector name="discovery-connector">tcp://127.0.0.1:61716</connector>' $AMQ_MASTER_HOME/etc/broker.xml
 sed -i'' -e 's/<discovery-group-ref discovery-group-name="dg-group1"\/>/<static-connectors>\n   <connector-ref>discovery-connector<\/connector-ref>\n<\/static-connectors>/' $AMQ_MASTER_HOME/etc/broker.xml
 
 echo "  - Create Replicated Slave"
 echo
-sh $AMQ_SERVER_BIN/artemis create --no-autotune --replicated --failover-on-shutdown --slave --user admin --password password --role admin --allow-anonymous y --clustered --host 0.0.0.0 --cluster-user clusterUser --cluster-password clusterPassword  --max-hops 1 --port-offset 100 $AMQ_INSTANCES/$AMQ_SLAVE
+sh $AMQ_SERVER_BIN/artemis create --no-autotune --replicated --failover-on-shutdown --slave --user admin --password password --role admin --allow-anonymous y --clustered --host 127.0.0.1 --cluster-user clusterUser --cluster-password clusterPassword  --max-hops 1 --port-offset 100 $AMQ_INSTANCES/$AMQ_SLAVE
 
 echo "  - Change default configuration to automate failback"
 echo
@@ -133,7 +133,7 @@ sed -i'' -e 's/<slave\/>/<slave>\n\                <allow-failback>true<\/allow-
 echo "  - Changing default master clustering configuration"
 echo
 sed -i'' -e '/<broadcast-groups>/,/<\/discovery-groups>/d' $AMQ_SLAVE_HOME/etc/broker.xml
-sed -i'' -e '/<\/connector>/ a \        <connector name="discovery-connector">tcp://0.0.0.0:61616</connector>' $AMQ_SLAVE_HOME/etc/broker.xml
+sed -i'' -e '/<\/connector>/ a \        <connector name="discovery-connector">tcp://127.0.0.1:61616</connector>' $AMQ_SLAVE_HOME/etc/broker.xml
 sed -i'' -e 's/<discovery-group-ref discovery-group-name="dg-group1"\/>/<static-connectors>\n   <connector-ref>discovery-connector<\/connector-ref>\n<\/static-connectors>/' $AMQ_SLAVE_HOME/etc/broker.xml
 
 echo "  - Start up AMQ Master in the background"
@@ -195,5 +195,6 @@ echo
 while true; do
     sleep 30
     echo "======== Running AMQ 7 HA Replication Demo =============="
+    echo KUBE Host $AMQ7_HA_REPLICATION_SERVICE_HOST
 done
 
