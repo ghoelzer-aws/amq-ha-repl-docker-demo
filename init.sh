@@ -186,7 +186,7 @@ done
 
 echo "  - Create haQueue on master broker"
 echo
-sh $AMQ_MASTER_HOME/bin/artemis queue create --auto-create-address --address haQueue --name haQueue --preserve-on-no-consumers --durable --anycast --url tcp://$AMQ7_HA_REPLICATION_SERVICE_HOST:61616
+sh $AMQ_MASTER_HOME/bin/artemis queue create --auto-create-address --address haQueue --name haQueue --preserve-on-no-consumers --durable --anycast --url tcp://172.30.124.140:61616
 
 echo "To stop the backgroud AMQ broker processes, please go to bin folders and execute 'artemis-service stop'"
 echo
