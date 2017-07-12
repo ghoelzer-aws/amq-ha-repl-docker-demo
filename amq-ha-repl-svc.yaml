@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    app: amq-ha-repl-docker-demo
+  name: amq7-ha-replication
+  namespace: amq7-ha-replication
+spec:
+  clusterIP:
+  ports:
+  - name: 8161-tcp
+    port: 8161
+    protocol: TCP
+    targetPort: 8161
+  selector:
+    deploymentconfig: amq-ha-repl-docker-demo
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
