@@ -19,5 +19,7 @@ ADD init.sh /opt/app-root/
 # Run AMQ 7 Installation and Config
 RUN cd /opt/app-root
 
+EXPOSE 8161 8261
+
 #Setup and Run AMQ 7 Artemis
 CMD ["/opt/app-root/init.sh"]
